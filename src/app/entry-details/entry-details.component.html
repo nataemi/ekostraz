@@ -1,0 +1,106 @@
+<div class="panel panel-primary form-container">
+
+  <div class="panel-heading" color="primary">Szczegóły interwencji</div>
+  <div class="panel-body form-container">
+    <mat-form-field>
+      <textarea matInput placeholder="Miejsce zgłoszenia" [(ngModel)]="entry.adres"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Opis zgłoszenia" rows="5" [(ngModel)]="entry.description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Imie" [(ngModel)]="entry.name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Nazwisko" [(ngModel)]="entry.surname">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="E-mail" [(ngModel)]="entry.email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Telefon" [(ngModel)]="entry.phone">
+    </mat-form-field>
+
+  </div>
+  <div class="panel-footer text-right">
+    <button mat-raised-button color="primary">Zapisz</button>
+  </div>
+
+</div>
+
+<div class="panel panel-primary form-container">
+
+  <div class="panel-heading" color="primary">Załączniki</div>
+
+  <div class="panel-body form-container">
+
+    <div class="table-container mat-elevation-z8">
+      <table mat-table [dataSource]="files">
+
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'"> Nazwa</th>
+          <td mat-cell *matCellDef="let element" [ngClass]="'customWidthClass'"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="creationDate">
+          <th mat-header-cell *matHeaderCellDef [ngClass]="'customWidthClass'"> Data utworzenia</th>
+          <td mat-cell *matCellDef="let element" [ngClass]="'customWidthClass'"> {{element.creationDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="download" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button class="material-icons">
+              cloud_download
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"
+            style="background-color: #337ab7; color:white !important;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+    </div>
+  </div>
+
+  <div class="panel-footer text-right">
+    <button mat-raised-button color="primary">Dodaj</button>
+  </div>
+
+</div>
+
+<div class="panel panel-primary form-container">
+
+  <div class="panel-heading" color="primary">Notatki</div>
+
+  <div class="panel-body form-container">
+
+    <mat-accordion>
+
+      <mat-expansion-panel *ngFor="let note of notes">
+        <mat-expansion-panel-header>
+          {{note.title}}
+        </mat-expansion-panel-header>
+        <div>
+          {{note.description}}
+        </div>
+        <div class="text-right">
+          <b> Autor:</b> {{note.creator}} <b>Data utworzenia: </b> {{note.date}}
+        </div>
+
+
+      </mat-expansion-panel>
+
+
+    </mat-accordion>
+
+  </div>
+
+  <div class="panel-footer text-right">
+    <button mat-raised-button color="primary" (click)="openDialog()" >Dodaj</button>
+  </div>
+
+</div>

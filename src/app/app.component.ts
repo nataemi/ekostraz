@@ -1,10 +1,22 @@
 import { Component } from '@angular/core';
+import {Observable} from 'rxjs';
+import {AuthService} from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styles: []
 })
 export class AppComponent {
-  title = 'angular-test';
+
+  isLoggedIn$: Observable<boolean>;                  // {1}
+
+  constructor(private authService: AuthService) {
+    this.isLoggedIn$ = this.authService.isLoggedIn;
+  }
+
+
+  onLogout() {
+    this.authService.logout();                      // {3}
+  }
 }

@@ -1,0 +1,34 @@
+<div class="panel panel-primary form-container">
+
+  <div class="panel-heading" >Zgłoszenie interwencji</div>
+  <div class="panel-body form-container">
+    <mat-form-field>
+      <textarea matInput placeholder="Miejsce zgłoszenia" [(ngModel)]="newEntry.adres"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Opis zgłoszenia" rows="5" [(ngModel)]="newEntry.description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Imie" [(ngModel)]="newEntry.name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Nazwisko" [(ngModel)]="newEntry.surname">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="E-mail" [(ngModel)]="newEntry.email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Telefon" [(ngModel)]="newEntry.phone">
+    </mat-form-field>
+
+  </div>
+  <div class="panel-footer text-right">
+    <button mat-raised-button color="primary" (click)="createEntry()">Wyślij</button>
+  </div>
+
+</div>
+
+
+
+

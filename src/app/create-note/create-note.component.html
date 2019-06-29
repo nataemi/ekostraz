@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h4 class="modal-title">Dodanie notatki</h4>
+  <button type="button" class="close" aria-label="Close" (click)="onNoClick()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <mat-form-field class="form-container">
+    <input matInput placeholder="Tytuł notatki" [(ngModel)]="note.title">
+  </mat-form-field>
+  <mat-form-field class="form-container">
+    <textarea matInput placeholder="Treść" rows="5" [(ngModel)]="note.description"></textarea>
+  </mat-form-field>
+</div>
+<div class="modal-footer">
+  <button mat-raised-button color="primary" (click)="add()" >Dodaj</button>
+</div>

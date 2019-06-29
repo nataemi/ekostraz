@@ -1,0 +1,9 @@
+{
+  "/Dev/interventions": {
+    "target": "https://eu0f3f2sg9.execute-api.eu-central-1.amazonaws.com/Dev/interventions",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "changeOrigin": true
+}
