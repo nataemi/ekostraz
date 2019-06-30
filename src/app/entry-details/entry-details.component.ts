@@ -25,6 +25,8 @@ export class EntryDetailsComponent implements OnInit {
   animal: string;
   name: string;
 
+  url: string;
+
   displayedColumns = ["name", "creationDate", "download"];
 
   constructor(
@@ -79,6 +81,8 @@ export class EntryDetailsComponent implements OnInit {
   onDropFile(event: DragEvent) {
     event.preventDefault();
     console.log(event.dataTransfer.files);
+
+
     this.uploadFile(event.dataTransfer.files);
   }
 
@@ -103,22 +107,33 @@ export class EntryDetailsComponent implements OnInit {
     }
     let file: File = files[0];
 
-    this.upload.uploadFile("/api/flash/upload", file)
-      .subscribe(
-        event => {
-          if (event.type == HttpEventType.UploadProgress) {
-            const percentDone = Math.round(100 * event.loaded / event.total);
-            console.log(`File is ${percentDone}% loaded.`);
-          } else if (event instanceof HttpResponse) {
-            console.log('File is completely loaded!');
-          }
-        },
-        (err) => {
-          console.log("Upload Error:", err);
-        }, () => {
-          console.log("Upload done");
-        }
-      )
+    this.entriesService.uploadFile(file.name).subscribe(
+      data => {
+        console.log(data);
+        this.url = data;
+
+        this.entriesService.putFile(this.url, file).subscribe();
+      }
+    );
+
+    // this.entriesService.putFile(this.url, file).subscribe();
+
+    // this.upload.uploadFile(this.url, file)
+    //   .subscribe(
+    //     event => {
+    //       if (event.type == HttpEventType.UploadProgress) {
+    //         const percentDone = Math.round(100 * event.loaded / event.total);
+    //         console.log(`File is ${percentDone}% loaded.`);
+    //       } else if (event instanceof HttpResponse) {
+    //         console.log('File is completely loaded!');
+    //       }
+    //     },
+    //     (err) => {
+    //       console.log("Upload Error:", err);
+    //     }, () => {
+    //       console.log("Upload done");
+    //     }
+    //   )
   }
 
 }

@@ -6,7 +6,8 @@ import {Entry} from './entry/entry';
 import {Note} from './entry-details/note';
 
 const entriesEndpoint = 'https://cors-anywhere.herokuapp.com/https://eu0f3f2sg9.execute-api.eu-central-1.amazonaws.com/Dev/interventions';
-const notesEndpoint = 'https://cors-anywhere.herokuapp.com/https://eu0f3f2sg9.execute-api.eu-central-1.amazonaws.com/Dev/notes/'
+const notesEndpoint = 'https://cors-anywhere.herokuapp.com/https://eu0f3f2sg9.execute-api.eu-central-1.amazonaws.com/Dev/notes/';
+const filesEndpoint = 'https://cors-anywhere.herokuapp.com/https://eu0f3f2sg9.execute-api.eu-central-1.amazonaws.com/Dev/files/';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'})
@@ -55,6 +56,21 @@ export class EntriesService {
     return this.http.delete<any>(entriesEndpoint + 'products/' + id, httpOptions).pipe(
       tap(_ => console.log(`deleted product id=${id}`)),
       catchError(this.handleError<any>('deleteProduct'))
+    );
+  }
+
+  uploadFile (fileName): Observable<any> {
+    return this.http.post<any>(filesEndpoint + 'uploadfile' ,
+    ' { filename: ' + JSON.stringify(fileName) + ' } ', httpOptions).pipe(
+      map(this.extractData)
+    );
+  }
+
+  putFile (url, file): Observable<any> {
+    return this.http.put<any>(url, file,
+    new HttpHeaders({'Access-Control-Allow-Methods' : 'PUT'})).pipe(
+      tap(_ => console.log(`putted file=${file.name}`)),
+      catchError(this.handleError<any>('puttedFileError'))
     );
   }
 
