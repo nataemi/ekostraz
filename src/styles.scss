@@ -1,3 +1,7 @@
+@import '~@aws-amplify/ui/src/Angular.css';
+@import '~@aws-amplify/ui/src/Theme.css';
+
+
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -33,4 +37,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-sort-header-arrow {
   color: white !important;
 }
+span {
+   color: white !important;
+ }
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+  color: grey !important;
+}
+
 

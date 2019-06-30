@@ -108,13 +108,15 @@
 
       <mat-expansion-panel *ngFor="let note of notes">
         <mat-expansion-panel-header>
-          {{note.title}}
+          <div>
+            {{note.title}}
+          </div>
         </mat-expansion-panel-header>
         <div>
           {{note.content}}
         </div>
         <div class="text-right">
-          <b> Autor:</b> {{note.author}} <b>Data utworzenia: </b> {{note.requestDate}}
+          <b> Autor:</b> {{note.author}}
         </div>
 
 

@@ -7,14 +7,16 @@ import {EntryComponent} from './entry/entry.component';
 import {EntryDetailsComponent} from './entry-details/entry-details.component';
 import {MapsComponent} from './maps/maps.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
-  { path: '', component: EntryListComponent},
-  { path: 'login', component: LoginComponent },
-  { path: 'entry', component: EntryComponent },
-  { path: 'entry/:id', component: EntryDetailsComponent},
-  { path: 'map', component: MapsComponent},
+  { path: '', component: EntryComponent},
+  { path: 'login', component: AuthComponent },
+  { path: 'entry', component: EntryListComponent, canActivate: [AuthGuard] },
+  { path: 'entry/:id', component: EntryDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'map', component: MapsComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent}
+
 ];
 
 @NgModule({

@@ -5,31 +5,27 @@ import {
   Router,
   RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import {map, take, tap} from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
+import {AmplifyService} from 'aws-amplify-angular';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private auth: AuthService,
+    private amplifyService: AmplifyService
+  ) { }
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.authService.isLoggedIn         // {1}
-      .pipe(
-        take(1),                               // {2}
-        map((isLoggedIn: boolean) => {         // {3}
-          if (!isLoggedIn) {
-            this.router.navigate(['/login']);  // {4}
-            return false;
-          }
-          return true;
-        })
-  );
+  canActivate() {
+    console.log('AuthGuard#canActivate called');
+    return this.amplifyService.auth().currentAuthenticatedUser()
+      .then(user => true)
+      .catch(err => {
+        this.router.navigate(['/login']);
+        return false;
+      });
   }
+
 }

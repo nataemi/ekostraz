@@ -3,29 +3,30 @@
   [longitude]="lng"
   [zoom]="zoom"
   [disableDefaultUI]="false"
-  [zoomControl]="false"
-  (mapClick)="mapClicked($event)">
+  [zoomControl]="false">
 
   <agm-marker
-    *ngFor="let m of markers; let i = index"
-    (markerClick)="clickedMarker(m.label, i)"
-    [latitude]="m.lat"
-    [longitude]="m.lng"
-    [label]="m.label"
+    *ngFor="let entry of entries; let i = index"
+    (markerClick)="clickedMarker(entry.id, i)"
+    [latitude]="entry.latitude"
+    [longitude]="entry.longitude"
+    [label]="entry.status"
     [markerDraggable]="false"
-    (dragEnd)="markerDragEnd(m, $event)">
+    (dragEnd)="markerDragEnd(entry, $event)">
 
     <agm-info-window>
-      <strong>InfoWindow content</strong>
+      <div>
+        <strong>{{entry.requestStatus | statuspipe}}</strong>
+      </div>
+      <div>
+        {{entry.requestDate | date: 'dd-MM-yyyy hh:mm:ss'}}
+      </div>
+      <div>
+        <a [routerLink]="['/entry', entry.id]"> więcej...</a>
+      </div>
     </agm-info-window>
 
   </agm-marker>
 
-  <agm-circle [latitude]="lat + 0.3" [longitude]="lng"
-              [radius]="5000"
-              [fillColor]="'red'"
-              [circleDraggable]="true"
-              [editable]="true">
-  </agm-circle>
 
 </agm-map>

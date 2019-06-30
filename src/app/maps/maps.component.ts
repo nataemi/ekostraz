@@ -3,6 +3,7 @@ import { MouseEvent} from '@agm/core';
 import {Router} from '@angular/router';
 import {EntriesService} from '../entries.service';
 import {MatTableDataSource} from '@angular/material';
+import {Entry} from '../entry/entry';
 
 @Component({
   selector: 'app-maps',
@@ -17,8 +18,11 @@ export class MapsComponent implements OnInit {
 
     this.entriesService.getEntries().subscribe(data => {
       this.entries = data.interventions;
+      console.log(this.entries);
     });
   }
+
+
 
   // google maps zoom level
   zoom = 8;
@@ -27,36 +31,13 @@ export class MapsComponent implements OnInit {
   lat = 51.107883;
   lng = 17.038538;
 
-  markers: Marker[] = [
-    {
-      lat: 51.007883,
-      lng: 7.815982,
-      label: 'A'
-    },
-    {
-      lat: 51.107883,
-      lng: 7.225982,
-      label: 'B'
-    },
-    {
-      lat: 51.107883,
-      lng: 7.895983,
-      label: 'C'
-    }
-  ];
 
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`);
   }
 
-  mapClicked($event: MouseEvent) {
-    this.markers.push({
-      lat: $event.coords.lat,
-      lng: $event.coords.lng
-    });
-  }
 
-  markerDragEnd(m: Marker, $event: MouseEvent) {
+  markerDragEnd(m: Entry, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
 
@@ -64,11 +45,4 @@ export class MapsComponent implements OnInit {
   }
 }
 
-// just an interface for type safety.
-interface Marker {
-  id?: string;
-  lat: number;
-  lng: number;
-  label?: string;
-}
 
