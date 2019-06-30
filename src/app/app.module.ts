@@ -81,7 +81,7 @@ import { AuthComponent } from './auth/auth.component';
     AppRoutingModule,
     AmplifyAngularModule
   ],
-  providers: [AuthService, EntriesService, UploadService],
+  providers: [AuthService, EntriesService, UploadService, AmplifyService],
   bootstrap: [AppComponent],
   entryComponents: [CreateNoteComponent]
 })
