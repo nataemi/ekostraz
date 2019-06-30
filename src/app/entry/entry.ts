@@ -12,7 +12,7 @@ export class Entry{
   city?: string;
   street?: string;
   id: string;
-  longtitude?: number;
+  longitude?: number;
   latitude?: number;
   requestStatus?: number
   notes?: Note[];
