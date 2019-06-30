@@ -37,6 +37,7 @@ export class CreateNoteComponent implements OnInit {
       username = any;
       console.log(username);
       this.entriesService.addNote(this.note, this.entriesService.currentId,username.username).subscribe();
+      this.dialogRef.close();
     });
 
   }
