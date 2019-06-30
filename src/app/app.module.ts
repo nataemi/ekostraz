@@ -74,7 +74,7 @@ import { AuthComponent } from './auth/auth.component';
     ReactiveFormsModule,
     MatDialogModule,
     AgmCoreModule.forRoot({
-      apiKey: ''
+      apiKey: 'AIzaSyAh1ON41t9HNhmpUg-GP_cT4k9TZmy8mjI'
     }),
     MatSortModule,
     HttpClientModule,

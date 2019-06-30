@@ -10,12 +10,11 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
-  { path: '', component: EntryListComponent},
-  { path: 'login', component: LoginComponent },
-  { path: 'entry', component: EntryComponent },
+  { path: '', component: EntryComponent},
+  { path: 'login', component: AuthComponent },
+  { path: 'entry', component: EntryListComponent },
   { path: 'entry/:id', component: EntryDetailsComponent},
   { path: 'map', component: MapsComponent},
-  { path: 'auth', component: AuthComponent},
   { path: '**', component: PageNotFoundComponent}
 
 ];

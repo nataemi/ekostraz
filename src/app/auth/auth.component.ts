@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from './auth.service';
+import {AmplifyService} from 'aws-amplify-angular';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  isLoggedIn$;
+  user$: boolean;
+
+  constructor(private authService: AuthService, private amplifyService: AmplifyService, private router:Router) {
+    this.isLoggedIn$ = this.authService.isLoggedIn;
+
+  }
 
   ngOnInit() {
+    this.amplifyService.authStateChange$
+      .subscribe(authState => {
+        this.isLoggedIn$ = authState.state === 'signedIn';
+        if (this.isLoggedIn$) {
+          this.router.navigate(['/']);
+        }
+      });
   }
 
 }
