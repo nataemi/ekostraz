@@ -1,5 +1,5 @@
 <div>
-  <mat-toolbar color="primary">
+  <mat-toolbar class="white-text">
     <mat-toolbar-row>
       <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>
@@ -29,7 +29,8 @@
           <a [routerLink]="['']" mat-button>Dodaj</a>
         </div>
         <div>
-          <a href="#" mat-button (click)="onLogout()" [routerLink]="['/login']">Wyloguj</a>
+          <a *ngIf="loggedIn" href="#" mat-button (click)="onLogout()" [routerLink]="['/login']">Wyloguj</a>
+          <a *ngIf="!loggedIn" href="#" mat-button [routerLink]="['/login']">Zaloguj</a>
         </div>
       </mat-nav-list>
     </mat-sidenav>

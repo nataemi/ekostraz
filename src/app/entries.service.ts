@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/common/http';
-import {from, observable, Observable, of} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {from, observable, Observable, of, pipe} from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import {Entry} from './entry/entry';
 import {Note} from './entry-details/note';
@@ -68,8 +68,7 @@ export class EntriesService {
   }
 
   putFile (url, file): Observable<any> {
-    return this.http.put<any>(url, file,
-    new HttpHeaders({'Access-Control-Allow-Methods' : 'PUT'})).pipe(
+    return this.http.put<any>(url, file, httpOptions).pipe(
       tap(_ => console.log(`putted file=${file.name}`)),
       catchError(this.handleError<any>('puttedFileError'))
     );
