@@ -3,14 +3,18 @@ import {HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/c
 import {from, observable, Observable, of} from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import {Entry} from './entry/entry';
+import {Note} from './entry-details/note';
 
 const entriesEndpoint = 'https://cors-anywhere.herokuapp.com/https://eu0f3f2sg9.execute-api.eu-central-1.amazonaws.com/Dev/interventions';
+const notesEndpoint = 'https://cors-anywhere.herokuapp.com/https://eu0f3f2sg9.execute-api.eu-central-1.amazonaws.com/Dev/notes/'
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'})
 };
 @Injectable()
 export class EntriesService {
+
+  public currentId;
 
   constructor(private http: HttpClient) { }
 
@@ -37,10 +41,13 @@ export class EntriesService {
     );
   }
 
-  updateProduct (id, product): Observable<any> {
-    return this.http.put(entriesEndpoint + 'products/' + id, JSON.stringify(product), httpOptions).pipe(
-      tap(_ => console.log(`updated product id=${id}`)),
-      catchError(this.handleError<any>('updateProduct'))
+  addNote (note: Note, id): Observable<any> {
+    note.author = ''
+    let body = ' { note: ' + JSON.stringify(note) + '}';
+    console.log(body);
+    return this.http.put<any>(notesEndpoint + id , body , httpOptions).pipe(
+      tap((entry) => console.log(`added note w/ id=${note.title}`)),
+      catchError(this.handleError<any>('addNote'))
     );
   }
 

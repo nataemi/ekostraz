@@ -48,6 +48,8 @@ export class EntryDetailsComponent implements OnInit {
       console.log(this.id);
     });
 
+    this.entriesService.currentId = this.id;
+
 
 
     this.files = [{
@@ -68,14 +70,9 @@ export class EntryDetailsComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateNoteComponent, {
-      width: '85%',
-      data: {name: this.name, animal: this.animal}
+      width: '85%'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
-    });
   }
 
 
