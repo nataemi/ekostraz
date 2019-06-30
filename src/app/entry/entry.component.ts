@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Entry} from './entry';
+import {EntriesService} from '../entries.service';
 
 @Component({
   selector: 'app-entry',
@@ -10,7 +11,7 @@ export class EntryComponent implements OnInit {
 
   newEntry: Entry;
 
-  constructor() { }
+  constructor(private entriesService: EntriesService) { }
 
   ngOnInit() {
     this.newEntry = new Entry();
@@ -18,8 +19,7 @@ export class EntryComponent implements OnInit {
 
   createEntry() {
     console.log(this.newEntry);
-    // this.dataService.createContact(this.contact);
-    // this.contact = {id: null, name: "", description: "", email: ""};
+    this.entriesService.addEntry(this.newEntry);
 
   }
 }

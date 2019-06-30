@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {from, Observable, of} from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
+import {Entry} from './entry/entry';
 
-const entriesEndpoint = '/Dev/interventions';
+const entriesEndpoint = 'https://cors-anywhere.herokuapp.com/https://eu0f3f2sg9.execute-api.eu-central-1.amazonaws.com/Dev/interventions';
 const httpOptions = {
   headers: new HttpHeaders({
     "Content-Type":"application/json"})
@@ -23,15 +24,15 @@ export class EntriesService {
       map(this.extractData));
   }
 
-  getProduct(id): Observable<any> {
-    return this.http.get(entriesEndpoint + 'products/' + id).pipe(
+  getEntry(id): Observable<any> {
+    return this.http.get(entriesEndpoint + '/' + id).pipe(
       map(this.extractData));
   }
 
-  addProduct (product): Observable<any> {
-    console.log(product);
-    return this.http.post<any>(entriesEndpoint + 'products', JSON.stringify(product), httpOptions).pipe(
-      tap((product) => console.log(`added product w/ id=${product.id}`)),
+  addEntry (entry: Entry): Observable<any> {
+    console.log(entry);
+    return this.http.post<any>(entriesEndpoint , JSON.stringify(entry), httpOptions).pipe(
+      tap((entry) => console.log(`added product w/ id=${entry.description}`)),
       catchError(this.handleError<any>('addProduct'))
     );
   }

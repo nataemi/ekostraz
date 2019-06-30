@@ -14,43 +14,17 @@ import {EntriesService} from '../entries.service';
 export class EntryListComponent {
 
   entries: Entry[];
-  displayedColumns = ['requestDate', 'city', 'adres', 'status'];
+  displayedColumns = ['requestDate', 'city', 'street', 'houseNumber', 'parcel', 'requestStatus'];
   selectedEntry: Entry;
   dataSource;
 
   constructor(private router: Router,
               private selectedEntryService: SelectedEntryService, private entriesService: EntriesService) {
-    this.entries = [{
-      id: '12',
-      name: 'a',
-      phone: '23',
-      description: 'sadlknflwfq fneiwfl;wef/kqdwn klwdqj;fleanfe lkew;fajlfknw fwlkzfwakcn/ ,klewfann `fw .nflw;anwf',
-      adres: 'skldad',
-      requestDate: 'dnskjad',
-      status: 'sakdnls',
-      surname: 'ddddd',
-      email: 'asdklnsd',
-      city: 'kupa'
-    },
-      {
-        id: '34',
-        name: 'a',
-        phone: '23',
-        description: 'sadlknflwfq',
-        adres: 'sklda2d',
-        requestDate: 'dnskjad',
-        status: 'sakdnls',
-        surname: 'sakdsld',
-        email: 'asdklnsd',
-        city: 'wroclaw'
-      }];
 
-    this.dataSource = new MatTableDataSource(this.entries);
-
-    this.entriesService.getEntries().subscribe((data: {}) => {
-      console.log(data);
-      // this.entries = data;
-      // console.log(this.entries);
+    this.entriesService.getEntries().subscribe(data => {
+      this.entries = data.interventions;
+      this.dataSource = new MatTableDataSource(this.entries);
+      console.log(this.dataSource);
     });
   }
 
@@ -58,6 +32,6 @@ export class EntryListComponent {
 
   showDetailedView(row) {
     this.selectedEntryService.setData(row);
-    this.router.navigate(['/entry-details']);
+    this.router.navigate(['/entry', row.id]);
   }
 }

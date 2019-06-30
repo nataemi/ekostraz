@@ -1,9 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SelectedEntryService} from '../entry-list/selected-entry.service';
 import {AdditionalFile} from './file';
 import {Note} from './note';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {CreateNoteComponent} from '../create-note/create-note.component';
+import {Entry} from '../entry/entry';
+import { ActivatedRoute } from '@angular/router';
+import {EntriesService} from '../entries.service';
 
 @Component({
   selector: 'app-entry-details',
@@ -12,7 +15,8 @@ import {CreateNoteComponent} from '../create-note/create-note.component';
 })
 export class EntryDetailsComponent implements OnInit {
 
-  entry: Event;
+  entry: Entry;
+  id: string;
 
   files: AdditionalFile[];
   notes: Note[];
@@ -22,12 +26,27 @@ export class EntryDetailsComponent implements OnInit {
 
   displayedColumns = ["name", "creationDate", "download"];
 
-  constructor(private selectedEntryService: SelectedEntryService, public dialog: MatDialog) {
+  constructor(private selectedEntryService: SelectedEntryService,
+              private route: ActivatedRoute, public dialog: MatDialog,
+              private entriesService: EntriesService) {
 
   }
 
   ngOnInit() {
     this.entry = this.selectedEntryService.getData();
+
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      this.entriesService.getEntry(this.id).subscribe(
+        data => {
+          this.entry = data;
+          console.log(this.entry);
+        }
+      );
+      console.log(this.id);
+    });
+
+
 
     this.files = [{
       name: "sjakbds,f",

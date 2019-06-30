@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: EntryListComponent},
   { path: 'login', component: LoginComponent },
   { path: 'entry', component: EntryComponent },
-  { path: 'entry-details', component: EntryDetailsComponent},
+  { path: 'entry/:id', component: EntryDetailsComponent},
   { path: 'map', component: MapsComponent}
 ];
 

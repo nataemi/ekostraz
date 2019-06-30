@@ -66,7 +66,7 @@ import {EntriesService} from './entries.service';
     ReactiveFormsModule,
     MatDialogModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAh1ON41t9HNhmpUg-GP_cT4k9TZmy8mjI'
+      apiKey: ''
     }),
     MatSortModule,
     HttpClientModule
