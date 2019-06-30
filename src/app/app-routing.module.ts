@@ -15,8 +15,9 @@ const routes: Routes = [
   { path: 'entry', component: EntryComponent },
   { path: 'entry/:id', component: EntryDetailsComponent},
   { path: 'map', component: MapsComponent},
-  { path: '**', component: PageNotFoundComponent},
-  { path: 'auth', component: AuthComponent, pathMatch: 'full' }
+  { path: 'auth', component: AuthComponent},
+  { path: '**', component: PageNotFoundComponent}
+
 ];
 
 @NgModule({
