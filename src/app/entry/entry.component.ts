@@ -18,8 +18,8 @@ export class EntryComponent implements OnInit {
   }
 
   createEntry() {
+    this.newEntry.requestStatus = 1;
     console.log(this.newEntry);
-    this.entriesService.addEntry(this.newEntry);
-
+    this.entriesService.addEntry(this.newEntry).subscribe();
   }
 }

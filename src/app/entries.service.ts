@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import {from, Observable, of} from 'rxjs';
+import {HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {from, observable, Observable, of} from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import {Entry} from './entry/entry';
 
 const entriesEndpoint = 'https://cors-anywhere.herokuapp.com/https://eu0f3f2sg9.execute-api.eu-central-1.amazonaws.com/Dev/interventions';
 const httpOptions = {
   headers: new HttpHeaders({
-    "Content-Type":"application/json"})
+    'Content-Type': 'application/json'})
 };
 @Injectable()
 export class EntriesService {
@@ -25,7 +25,7 @@ export class EntriesService {
   }
 
   getEntry(id): Observable<any> {
-    return this.http.get(entriesEndpoint + '/' + id).pipe(
+    return this.http.get(entriesEndpoint + '/?id=' + id).pipe(
       map(this.extractData));
   }
 

@@ -30,3 +30,7 @@ $angular-test-theme: mat-light-theme($angular-test-primary, $angular-test-accent
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-sort-header-arrow {
+  color: white !important;
+}
+

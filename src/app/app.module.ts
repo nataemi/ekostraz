@@ -24,12 +24,14 @@ import { EntryComponent } from './entry/entry.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ExtendedModule, FlexModule} from '@angular/flex-layout';
 import {EntryDetailsComponent} from './entry-details/entry-details.component';
-import {SelectedEntryService} from './entry-list/selected-entry.service';
 import { CreateNoteComponent } from './create-note/create-note.component';
 import { AgmCoreModule } from '@agm/core';
 import { MapsComponent } from './maps/maps.component';
 import {HttpClientModule} from '@angular/common/http';
 import {EntriesService} from './entries.service';
+import {StatusPipe} from './entry-list/status-pipe';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {UploadService} from './upload.service';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import {EntriesService} from './entries.service';
     EntryComponent,
     EntryDetailsComponent,
     CreateNoteComponent,
-    MapsComponent
+    MapsComponent,
+    StatusPipe,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,7 @@ import {EntriesService} from './entries.service';
     MatSortModule,
     HttpClientModule
   ],
-  providers: [AuthService, SelectedEntryService, EntriesService],
+  providers: [AuthService, EntriesService, UploadService],
   bootstrap: [AppComponent],
   entryComponents: [CreateNoteComponent]
 })

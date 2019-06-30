@@ -3,7 +3,16 @@
   <div class="panel-heading" >Zgłoszenie interwencji</div>
   <div class="panel-body form-container">
     <mat-form-field>
-      <textarea matInput placeholder="Miejsce zgłoszenia" [(ngModel)]="newEntry.adres"></textarea>
+      <input matInput placeholder="Miasto" [(ngModel)]="newEntry.city">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Dzielnica" [(ngModel)]="newEntry.parcel">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Ulica" [(ngModel)]="newEntry.street">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Numer domu" [(ngModel)]="newEntry.houseNumber">
     </mat-form-field>
     <mat-form-field>
       <textarea matInput placeholder="Opis zgłoszenia" rows="5" [(ngModel)]="newEntry.description"></textarea>
@@ -19,7 +28,7 @@
       <input matInput placeholder="E-mail" [(ngModel)]="newEntry.email">
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Telefon" [(ngModel)]="newEntry.phone">
+      <input matInput placeholder="Telefon" [(ngModel)]="newEntry.phoneNumber">
     </mat-form-field>
 
   </div>

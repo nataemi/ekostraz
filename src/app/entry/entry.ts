@@ -1,14 +1,19 @@
+import {Note} from '../entry-details/note';
+
 export class Entry{
   requestDate?: string;
   name?: string;
   surname?: string;
   description?: string;
-  phone?: string;
+  phoneNumber?: string;
+  houseNumber?: string;
+  parcel?: string;
   email?: string;
   city?: string;
-  adres?: string;
+  street?: string;
   id: string;
   longtitude?: number;
   latitude?: number;
-  status?: string;
+  requestStatus?: number
+  notes?: Note[];
 }

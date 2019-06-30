@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {SelectedEntryService} from '../entry-list/selected-entry.service';
 import {AdditionalFile} from './file';
 import {Note} from './note';
 import {MatDialog} from '@angular/material';
@@ -7,6 +6,8 @@ import {CreateNoteComponent} from '../create-note/create-note.component';
 import {Entry} from '../entry/entry';
 import { ActivatedRoute } from '@angular/router';
 import {EntriesService} from '../entries.service';
+import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {UploadService} from '../upload.service';
 
 @Component({
   selector: 'app-entry-details',
@@ -26,21 +27,22 @@ export class EntryDetailsComponent implements OnInit {
 
   displayedColumns = ["name", "creationDate", "download"];
 
-  constructor(private selectedEntryService: SelectedEntryService,
+  constructor(
               private route: ActivatedRoute, public dialog: MatDialog,
-              private entriesService: EntriesService) {
+              private entriesService: EntriesService,
+              private upload: UploadService) {
 
   }
 
   ngOnInit() {
-    this.entry = this.selectedEntryService.getData();
 
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.entriesService.getEntry(this.id).subscribe(
         data => {
-          this.entry = data;
+          this.entry = data.interventions[0];
           console.log(this.entry);
+          this.notes = this.entry.notes;
         }
       );
       console.log(this.id);
@@ -62,20 +64,6 @@ export class EntryDetailsComponent implements OnInit {
       }
     ];
 
-    this.notes = [
-      {
-       title: 'Moja',
-        date: '01-11-2919',
-        description: 'Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker',
-        creator: 'Asia'
-      },
-      {
-        title: 'Moja',
-        date: '01-11-sdsd2919',
-        description: 'Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker',
-        creator: 'Asia'
-      }
-    ];
   }
 
   openDialog(): void {
@@ -90,9 +78,50 @@ export class EntryDetailsComponent implements OnInit {
     });
   }
 
-}
 
-export interface DialogData {
-  animal: string;
-  name: string;
+  onDropFile(event: DragEvent) {
+    event.preventDefault();
+    console.log(event.dataTransfer.files);
+    this.uploadFile(event.dataTransfer.files);
+  }
+
+  // At the drag drop area
+  // (dragover)="onDragOverFile($event)"
+  onDragOverFile(event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+  // At the file input element
+  // (change)="selectFile($event)"
+  selectFile(event) {
+    this.uploadFile(event.target.files);
+  }
+
+  uploadFile(files: FileList) {
+    if (files.length == 0) {
+      console.log("No file selected!");
+      return
+
+    }
+    let file: File = files[0];
+
+    this.upload.uploadFile("/api/flash/upload", file)
+      .subscribe(
+        event => {
+          if (event.type == HttpEventType.UploadProgress) {
+            const percentDone = Math.round(100 * event.loaded / event.total);
+            console.log(`File is ${percentDone}% loaded.`);
+          } else if (event instanceof HttpResponse) {
+            console.log('File is completely loaded!');
+          }
+        },
+        (err) => {
+          console.log("Upload Error:", err);
+        }, () => {
+          console.log("Upload done");
+        }
+      )
+  }
+
 }

@@ -3,10 +3,19 @@
   <div class="panel-heading" color="primary">Szczegóły interwencji</div>
   <div class="panel-body form-container">
     <mat-form-field>
-      <textarea matInput placeholder="Miejsce zgłoszenia" [(ngModel)]="entry.adres"></textarea>
+      <input matInput placeholder="Miasto" [(ngModel)]="entry.city">
     </mat-form-field>
     <mat-form-field>
-      <textarea matInput placeholder="Opis zgłoszenia" rows="5" [(ngModel)]="entry.description"></textarea>
+      <input matInput placeholder="Dzielnica" [(ngModel)]="entry.parcel">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Ulica" [(ngModel)]="entry.street">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Numer domu" [(ngModel)]="entry.houseNumber">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Opis zgłoszenia" rows="5" [(ngModel)]="entry.description">
     </mat-form-field>
 
     <mat-form-field>
@@ -19,8 +28,19 @@
       <input matInput placeholder="E-mail" [(ngModel)]="entry.email">
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Telefon" [(ngModel)]="entry.phone">
+      <input matInput placeholder="Telefon" [(ngModel)]="entry.phoneNumber">
     </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Data zgłoszenia" [ngModel]="entry.requestDate | date: 'dd-MM-yyyy hh:mm:ss'"
+             (ngModelChange)="entry.requestDate=$event">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Status" [ngModel]="entry.requestStatus | statuspipe"
+             (ngModelChange)="entry.requestDate=$event">
+    </mat-form-field>
+
 
   </div>
   <div class="panel-footer text-right">
@@ -66,8 +86,14 @@
     </div>
   </div>
 
-  <div class="panel-footer text-right">
-    <button mat-raised-button color="primary">Dodaj</button>
+
+  <div class="panel-footer text-center" (dragover)="onDragOverFile($event)" (drop)="onDropFile($event)" >
+        <div >Przeciągnij i upuść tutaj plik, aby dodać</div>
+    <div>
+      <i class="material-icons">
+      cloud_download
+    </i>
+    </div>
   </div>
 
 </div>
@@ -85,10 +111,10 @@
           {{note.title}}
         </mat-expansion-panel-header>
         <div>
-          {{note.description}}
+          {{note.content}}
         </div>
         <div class="text-right">
-          <b> Autor:</b> {{note.creator}} <b>Data utworzenia: </b> {{note.date}}
+          <b> Autor:</b> {{note.author}} <b>Data utworzenia: </b> {{note.requestDate}}
         </div>
 
 
