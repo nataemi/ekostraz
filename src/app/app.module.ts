@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 
 import {
   MatInputModule,
@@ -32,6 +33,8 @@ import {EntriesService} from './entries.service';
 import {StatusPipe} from './entry-list/status-pipe';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {UploadService} from './upload.service';
+import { AuthComponent } from './auth/auth.component';
+
 
 
 @NgModule({
@@ -44,7 +47,8 @@ import {UploadService} from './upload.service';
     CreateNoteComponent,
     MapsComponent,
     StatusPipe,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +77,9 @@ import {UploadService} from './upload.service';
       apiKey: ''
     }),
     MatSortModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    AmplifyAngularModule
   ],
   providers: [AuthService, EntriesService, UploadService],
   bootstrap: [AppComponent],

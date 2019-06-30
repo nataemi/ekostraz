@@ -7,6 +7,7 @@ import {EntryComponent} from './entry/entry.component';
 import {EntryDetailsComponent} from './entry-details/entry-details.component';
 import {MapsComponent} from './maps/maps.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
   { path: '', component: EntryListComponent},
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'entry', component: EntryComponent },
   { path: 'entry/:id', component: EntryDetailsComponent},
   { path: 'map', component: MapsComponent},
-  { path: '**', component: PageNotFoundComponent}
+  { path: '**', component: PageNotFoundComponent},
+  { path: 'auth', component: AuthComponent, pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -1,0 +1,8 @@
+{
+	"auth": {
+		"ekostraz75fc9f5a": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}
