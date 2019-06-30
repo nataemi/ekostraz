@@ -4,6 +4,7 @@ import {Note} from '../entry-details/note';
 import {EntriesService} from '../entries.service';
 import {EntryDetailsComponent} from '../entry-details/entry-details.component';
 import {ActivatedRoute} from '@angular/router';
+import {Auth} from 'aws-amplify';
 
 @Component({
   selector: 'app-create-note',
@@ -31,7 +32,13 @@ export class CreateNoteComponent implements OnInit {
   }
 
   add(){
-    this.entriesService.addNote(this.note, this.entriesService.currentId).subscribe();
+    let username;
+    Auth.currentUserInfo().then(any => {
+      username = any;
+      console.log(username);
+      this.entriesService.addNote(this.note, this.entriesService.currentId,username.username).subscribe();
+    });
+
   }
 
 

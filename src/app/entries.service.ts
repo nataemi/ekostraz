@@ -41,8 +41,9 @@ export class EntriesService {
     );
   }
 
-  addNote (note: Note, id): Observable<any> {
-    note.author = ''
+  addNote (note: Note, id,user): Observable<any> {
+    console.log(user);
+    note.author = user;
     let body = ' { note: ' + JSON.stringify(note) + '}';
     console.log(body);
     return this.http.put<any>(notesEndpoint + id , body , httpOptions).pipe(
