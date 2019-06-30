@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MouseEvent} from '@agm/core';
+import {Router} from '@angular/router';
+import {EntriesService} from '../entries.service';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-maps',
@@ -8,27 +11,21 @@ import { MouseEvent} from '@agm/core';
 })
 export class MapsComponent implements OnInit {
 
+  entries;
+
+  constructor(private entriesService: EntriesService) {
+
+    this.entriesService.getEntries().subscribe(data => {
+      this.entries = data.interventions;
+    });
+  }
+
   // google maps zoom level
   zoom = 8;
 
   // initial center position for the map
   lat = 51.107883;
   lng = 17.038538;
-
-  clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`);
-  }
-
-  mapClicked($event: MouseEvent) {
-    this.markers.push({
-      lat: $event.coords.lat,
-      lng: $event.coords.lng
-    });
-  }
-
-  markerDragEnd(m: Marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
-  }
 
   markers: Marker[] = [
     {
@@ -47,6 +44,21 @@ export class MapsComponent implements OnInit {
       label: 'C'
     }
   ];
+
+  clickedMarker(label: string, index: number) {
+    console.log(`clicked the marker: ${label || index}`);
+  }
+
+  mapClicked($event: MouseEvent) {
+    this.markers.push({
+      lat: $event.coords.lat,
+      lng: $event.coords.lng
+    });
+  }
+
+  markerDragEnd(m: Marker, $event: MouseEvent) {
+    console.log('dragEnd', m, $event);
+  }
 
   ngOnInit(): void {
   }

@@ -19,3 +19,9 @@ table {
   font-weight: bold;
   text-align:center;
 }
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+}
