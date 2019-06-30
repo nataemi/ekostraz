@@ -34,6 +34,7 @@ import {StatusPipe} from './entry-list/status-pipe';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {UploadService} from './upload.service';
 import { AuthComponent } from './auth/auth.component';
+import {AuthGuard} from './auth/auth.guard';
 
 
 
@@ -81,7 +82,7 @@ import { AuthComponent } from './auth/auth.component';
     AppRoutingModule,
     AmplifyAngularModule
   ],
-  providers: [AuthService, EntriesService, UploadService, AmplifyService],
+  providers: [AuthService, EntriesService, UploadService, AmplifyService, AuthGuard],
   bootstrap: [AppComponent],
   entryComponents: [CreateNoteComponent]
 })

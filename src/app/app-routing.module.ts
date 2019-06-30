@@ -12,9 +12,9 @@ import { AuthComponent } from './auth/auth.component';
 const routes: Routes = [
   { path: '', component: EntryComponent},
   { path: 'login', component: AuthComponent },
-  { path: 'entry', component: EntryListComponent },
-  { path: 'entry/:id', component: EntryDetailsComponent},
-  { path: 'map', component: MapsComponent},
+  { path: 'entry', component: EntryListComponent, canActivate: [AuthGuard] },
+  { path: 'entry/:id', component: EntryDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'map', component: MapsComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent}
 
 ];

@@ -11,8 +11,7 @@
         <a [routerLink]="['/entry']" mat-button>Lista</a>
         <a [routerLink]="['/map']" mat-button>Mapa</a>
         <a [routerLink]="['']" mat-button>Dodaj</a>
-        <a [routerLink]="['/login']" mat-button>Zaloguj</a>
-        <a href="#" mat-button (click)="onLogout()">Wyloguj</a>
+        <a href="#" mat-button (click)="onLogout()" [routerLink]="['/login']">Wyloguj</a>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
@@ -30,7 +29,7 @@
           <a [routerLink]="['']" mat-button>Dodaj</a>
         </div>
         <div>
-        <a [routerLink]="['/login']" mat-button>Zaloguj</a>
+          <a href="#" mat-button (click)="onLogout()" [routerLink]="['/login']">Wyloguj</a>
         </div>
       </mat-nav-list>
     </mat-sidenav>
